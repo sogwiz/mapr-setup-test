@@ -1,0 +1,10 @@
+FROM jrei/systemd-ubuntu:18.04
+
+RUN apt-get update \
+    && apt-get install -y sudo wget passwd iputils-ping \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY setup-mapr-setup.sh /
+RUN ["chmod", "+x", "/setup-mapr-setup.sh"]
+CMD ["/lib/systemd/systemd"]

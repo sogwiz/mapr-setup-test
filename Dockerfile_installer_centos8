@@ -1,0 +1,12 @@
+FROM jrei/systemd-centos:8
+
+RUN yum update -y \
+&& yum install -y sudo \ 
+wget \ 
+which \ 
+passwd \
+&& yum clean all
+COPY setup-mapr-setup.sh /
+RUN ["chmod", "+x", "/setup-mapr-setup.sh"]
+STOPSIGNAL SIGRTMIN+3
+CMD [ "/sbin/init" ]
